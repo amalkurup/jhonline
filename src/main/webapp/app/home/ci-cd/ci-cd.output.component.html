@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        <fa-icon [icon]="'sync'" [spin]="!displayApplicationUrl"></fa-icon>
+        <span *ngIf="!displayApplicationUrl">&nbsp;Configuring Continuous Integration/Continuous Deployment</span>
+    </h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            (click)="clear()">&times;
+    </button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <pre>
+Sending request to the server...
+{{logs}}
+                </pre>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayApplicationUrl && selectedGitProvider === 'GitHub'">
+            <div class="col-md-12">
+                <div class="lead">
+                    <b>Continuous Integration configured!</b>
+                    <ul>
+                        <li>Merge the Pull Request at <a href="{{githubHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/pulls" target="_blank">{{githubHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/pulls</a></li>
+                        <li>Open your GitHub branch at <a href="{{githubHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/tree/jhipster-{{ciCdTool}}-{{ciCdId}}" target="_blank">{{githubHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/tree/jhipster-{{ciCdTool}}-{{ciCdId}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayApplicationUrl && selectedGitProvider === 'GitLab'">
+            <div class="col-md-12">
+                <div class="lead">
+                    <b>Continuous Integration configured!</b>
+                    <ul>
+                        <li>Merge the Merge Request at <a href="{{gitlabHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/merge_requests" target="_blank">{{gitlabHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/merge_requests</a></li>
+                        <li>Open your GitLab branch at <a href="{{gitlabHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/tree/jhipster-{{ciCdTool}}-{{ciCdId}}" target="_blank">{{gitlabHost}}/{{selectedGitCompany}}/{{selectedGitRepository}}/tree/jhipster-{{ciCdTool}}-{{ciCdId}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit" (click)="clear()" class="btn btn-primary">
+        <fa-icon [icon]="'times-circle'"></fa-icon>&nbsp;Close this window
+    </button>
+</div>

@@ -1,0 +1,26 @@
+<h2><fa-icon [icon]="'wrench'"></fa-icon>
+    <ng-container *ngIf="provider === 'github'"><span>GitHub configuration</span></ng-container>
+    <ng-container *ngIf="provider === 'gitlab'"><span>GitLab configuration</span></ng-container>
+</h2>
+
+<div>
+    <i>
+        JHipster Online can create new repositories for you, using
+        <a routerLink="/generate-application">the online application generator</a>.
+        You can revoke this access at any time in your
+        <ng-container *ngIf="provider === 'github'"><a href="{{gitConfig.githubHost}}/settings/applications">GitHub</a></ng-container>
+        <ng-container *ngIf="provider === 'gitlab'"><a href="{{gitConfig.gitlabHost}}/profile/applications">GitLab</a></ng-container>
+        settings.
+    </i>
+</div>
+
+<p>
+    &nbsp;
+</p>
+
+<div class="alert alert-{{alertType}}">
+    <span *ngIf="isLoading">
+        <fa-icon [icon]="'sync'" [spin]="true"></fa-icon>
+    </span>
+    {{message}}
+</div>
