@@ -69,7 +69,7 @@ public class ApplicationProperties {
 
     public static class JhipsterCmd {
         private String cmd = "jhipster";
-        private Integer timeout = 120;
+        private Integer timeout = 300;
 
         public String getCmd() {
             return cmd;

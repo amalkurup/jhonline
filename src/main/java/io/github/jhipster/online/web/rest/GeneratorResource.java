@@ -141,5 +141,14 @@ public class GeneratorResource {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @PostMapping("/jdl-generate")
+    @Timed
+    @Secured(AuthoritiesConstants.USER)
+    public ResponseEntity generateJdlApps(@RequestBody String jdlContent) throws Exception {
+        log.info("Generating microservices listed on jdl file ", jdlContent);
+        String aDir = this.generatorService.generateJdlApps(jdlContent);
+        return new ResponseEntity<>(aDir, HttpStatus.CREATED);
+    }
 
 }

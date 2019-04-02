@@ -112,4 +112,42 @@ public class JHipsterService {
             throw e;
         }
     }
+    
+    
+    private void runProcessWithoutId(File workingDir, String command) throws IOException {
+        log.info("Running command: \"{}\" in directory:  \"{}\"", command, workingDir);
+        try {
+            String line;
+            Process p = Runtime.getRuntime().exec
+                (command, null, workingDir);
+
+            taskExecutor.execute(() -> {
+                try {
+                    p.waitFor(timeout, TimeUnit.SECONDS);
+                    if (p.isAlive()) {
+                        p.destroyForcibly();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            BufferedReader input =
+                new BufferedReader
+                    (new InputStreamReader(p.getInputStream()));
+            while ((line = input.readLine()) != null) {
+                log.debug(line);
+            }
+            input.close();
+        } catch (Exception e) {
+            log.error("Error while running the process", e);
+            throw e;
+        }
+    }
+    
+    public void runImportJdlWithoutId(File workingDir, String jdlFileName) throws IOException {
+        this.runProcessWithoutId(workingDir, jhipsterCommand + " import-jdl " +
+            jdlFileName + ".jdl " +
+            "--force-insight --skip-checks --skip-install --force ");
+    }
 }

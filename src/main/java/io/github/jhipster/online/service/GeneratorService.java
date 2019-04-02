@@ -98,7 +98,29 @@ public class GeneratorService {
             throw ioe;
         }
     }
+    
+    private void generateJdlFile(File workingDir, String jdlContent)
+            throws IOException {
 
+            try {
+            	log.info("Generating jdl file in " + workingDir.getAbsolutePath());
+                PrintWriter writer = new PrintWriter(workingDir + "/app.jdl", "UTF-8");
+                writer.print(jdlContent);
+                writer.close();
+            } catch (IOException ioe) {
+                log.error("Error creating JDL file", ioe);
+                throw ioe;
+            }
+        }
+
+    public String generateJdlApps(String jdlContent) throws Exception {
+    		File workingDir = new File(applicationProperties.getTmpFolder() + "/jhipster/jdlapps/" + "app_" + System.currentTimeMillis());
+    		FileUtils.forceMkdir(workingDir);
+            this.generateJdlFile(workingDir, String jdlContent);
+            this.jHipsterService.runImportJdlWithoutId(workingDir, "app")
+            return workingDir.getAbsolutePath();
+        }
+    
     private void zipResult(File workingDir) {
         ZipUtil.pack(workingDir, new File(workingDir + ".zip"));
     }
