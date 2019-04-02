@@ -1,4 +1,5 @@
 FROM openjdk:8 as builder
+USER root
 ADD . /code/
 RUN \
     apt-get update && \
