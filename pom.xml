@@ -10,6 +10,10 @@
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
+        <repository>
+        <id>central</id>
+        <url>http://central.maven.org/maven2/</url>
+        </repository>
     </repositories>
 
     <properties>
