@@ -30,6 +30,7 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
+    
 
     <properties>
         <!-- Build properties -->
