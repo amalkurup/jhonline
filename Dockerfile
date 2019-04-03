@@ -20,7 +20,7 @@ ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
 RUN apk update && \
     apk add nodejs npm && \
     npm install -g generator-jhipster@5.8.2
-CMD echo "The application will start in ${JHIPSTER_SLEEP}s..." && \
+CMD echo "The application will start in ${JHIPSTER_SLEEP}s...." && \
     sleep ${JHIPSTER_SLEEP} && \
     java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /jhonline*.war
 EXPOSE 8080
