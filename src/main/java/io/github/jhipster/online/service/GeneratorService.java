@@ -116,8 +116,8 @@ public class GeneratorService {
     public String generateJdlApps(String jdlContent) throws Exception {
     		File workingDir = new File(applicationProperties.getTmpFolder() + "/jhipster/jdlapps/" + "app_" + System.currentTimeMillis());
     		FileUtils.forceMkdir(workingDir);
-            this.generateJdlFile(workingDir, String jdlContent);
-            this.jHipsterService.runImportJdlWithoutId(workingDir, "app")
+            this.generateJdlFile(workingDir, jdlContent);
+            this.jHipsterService.runImportJdlWithoutId(workingDir, "app");
             return workingDir.getAbsolutePath();
         }
     
