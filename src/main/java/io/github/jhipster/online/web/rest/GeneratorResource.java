@@ -147,8 +147,23 @@ public class GeneratorResource {
     @Secured(AuthoritiesConstants.USER)
     public ResponseEntity generateJdlApps(@RequestBody String jdlContent) throws Exception {
         log.info("Generating microservices listed on jdl file ", jdlContent);
-        String aDir = this.generatorService.generateJdlApps(jdlContent);
-        return new ResponseEntity<>(aDir, HttpStatus.CREATED);
+        String zippedApplication = this.generatorService.generateJdlApps(jdlContent);
+        
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(zippedApplication);
+            byte[] out = IOUtils.toByteArray(inputStream);
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.add("content-disposition", "attachment; filename=applications.zip");
+            responseHeaders.add("Content-Type", "application/octet-stream");
+            responseHeaders.add("Content-Transfer-Encoding", "binary");
+            responseHeaders.add("Content-Length", String.valueOf(out.length));
+            return new ResponseEntity(out, responseHeaders, HttpStatus.OK);
+        } catch (IOException ioe) {
+            log.error("Error sending zipped application", ioe);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
     }
 
 }

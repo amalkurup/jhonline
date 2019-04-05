@@ -118,7 +118,8 @@ public class GeneratorService {
     		FileUtils.forceMkdir(workingDir);
             this.generateJdlFile(workingDir, jdlContent);
             this.jHipsterService.runImportJdlWithoutId(workingDir, "app");
-            return workingDir.getAbsolutePath();
+            ZipUtil.pack(workingDir, new File(workingDir + ".zip"));
+            return workingDir + ".zip";
         }
     
     private void zipResult(File workingDir) {
