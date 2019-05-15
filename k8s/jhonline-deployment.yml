@@ -34,7 +34,7 @@ spec:
                 done
       containers:
       - name: jhonline-app
-        image: jhipster/jhipster-online
+        image: amal89/jhonline
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
